@@ -92,7 +92,10 @@ export const TransactionTypeButton = styled(RadioGroup.Item)<TransactionTypeButt
   cursor: pointer;
   border: 0;
   color: ${props => props.theme['gray-300']};
-  box-shadow: none;
+  
+  &:focus {
+    box-shadow: none;
+  }
 
   svg {
     color: ${props => props.variant === 'income' ? props.theme['green-300'] : props.theme['red-300']};
