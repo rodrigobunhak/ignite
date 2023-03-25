@@ -12,10 +12,10 @@ import Link from "next/link";
 
 interface HomeProps {
   products: {
-    id: string,
-    name: string,
-    imageUrl: string,
-    price: number
+    id: string;
+    name: string;
+    imageUrl: string;
+    price: string;
   }[]
 }
 
@@ -54,8 +54,7 @@ export const getStaticProps: GetStaticProps = async () => {
   });
 
   const products = response.data.map(product => {
-    const priceReference = product.default_price as Stripe.Price
-    const price = priceReference.unit_amount ? priceReference.unit_amount / 100 : 0;
+    const price = product.default_price as Stripe.Price
 
     return {
       id: product.id,
@@ -64,7 +63,7 @@ export const getStaticProps: GetStaticProps = async () => {
       price: new Intl.NumberFormat('pt-BR', {
         style: 'currency',
         currency: 'BRL',
-      }).format(price),
+      }).format(price.unit_amount / 100),
     }
   })
 
